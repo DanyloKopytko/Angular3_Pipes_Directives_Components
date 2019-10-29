@@ -15,6 +15,7 @@ export class AppComponent {
     {city: 'Ivano-Frankivsk', meters: '90', price: '800000', street: 'Kolopita 3/21'},
     {city: 'Lviv', meters: '105', price: '1200000', street: 'Hurika 1/1'},
   ];
+  render: boolean;
 
   onInput(ev): void {
     this.inputValue = ev.target.value;
@@ -30,5 +31,9 @@ export class AppComponent {
 
   renderRegister() {
     this.status = 2;
+  }
+
+  renderHouses() {
+    this.render = !this.render;
   }
 }

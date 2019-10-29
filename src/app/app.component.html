@@ -19,11 +19,15 @@
   </div>
 </div>
 <br>
-<div *ngFor="let house of houses" style="border: 2px solid blue;">
-  <p>City: {{house.city}}</p>
-  <p>Meters: {{house.meters}}</p>
-  <p>Price: {{house.price}}</p>
-  <p>Street: {{house.street}}</p>
+<button (click)="renderHouses()">Houses</button>
+<br>
+<div *ngIf="render">
+  <div *ngFor="let house of houses" style="border: 2px solid blue;">
+    <p>City: {{house.city}}</p>
+    <p>Meters: {{house.meters}}</p>
+    <p>Price: {{house.price}}</p>
+    <p>Street: {{house.street}}</p>
+  </div>
 </div>
 
 
