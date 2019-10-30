@@ -1,9 +1,35 @@
+<p>Input price and we will find you house! Just get a house: </p>
 <input type="text" (input)="onInput($event)">
 <button (click)="search()">Search</button>
 <br>
 {{valueToFront}}
 <br>
+<div *ngIf="renderSearchedHouses">
+  <div *ngIf="foundedHouse" style="border: 2px solid green;">
+    <p>City: {{foundedHouse.city}}</p>
+    <p>Meters: {{foundedHouse.meters}}</p>
+    <p>Price: {{foundedHouse.price}}</p>
+    <p>Street: {{foundedHouse.street}}</p>
+  </div>
+  {{houseSearchError}}
+</div>
+<br>
+<p>Maybe you want create new house?</p>
+<p>City: </p>
+<input type="text" (input)="onHouseInputCity($event)">
+<p>Meters: </p>
+<input type="number" (input)="onHouseInputMeters($event)">
+<p>Price: </p>
+<input type="number" (input)="onHouseInputPrice($event)">
+<p>Street: </p>
+<input type="text" (input)="onHouseInputStreet($event)">
+<br>
+<br>
+<button (click)="createHouse()">Create</button>
+<br>
+<br>
 <button (click)="renderLogin()">Login</button>
+<br>
 <br>
 <button (click)="renderRegister()">Register</button>
 <br>
@@ -21,7 +47,7 @@
 <br>
 <button (click)="renderHouses()">Houses</button>
 <br>
-<div *ngIf="render">
+<div *ngIf="renderAllHouses">
   <div *ngFor="let house of houses" style="border: 2px solid blue;">
     <p>City: {{house.city}}</p>
     <p>Meters: {{house.meters}}</p>
