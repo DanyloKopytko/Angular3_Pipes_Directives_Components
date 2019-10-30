@@ -53,11 +53,7 @@ export class AppComponent {
     this.foundedHouse = undefined;
     this.houseSearchError = '';
 
-    this.foundedHouse = this.houses.find((house) => {
-      if (+house.price === +this.valueToFront) {
-        return house;
-      }
-    });
+    this.foundedHouse = this.houses.find((house) => +house.price === +this.valueToFront);
 
     if (!this.foundedHouse) {
       this.houseSearchError = 'No house, dude';
