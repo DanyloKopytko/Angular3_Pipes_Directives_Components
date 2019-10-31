@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,24 @@ export class AppComponent {
   inputValue: string;
   valueToFront: string;
   status: number;
-  houses = [
-    {city: 'Lviv', meters: 100, price: 1000000, street: 'Gasd 23/7'},
-    {city: 'Kyiv', meters: 120, price: 1500000, street: 'Hilan 17/19'},
-    {city: 'Ivano-Frankivsk', meters: 90, price: 800000, street: 'Kolopita 3/21'},
-    {city: 'Lviv', meters: 105, price: 1200000, street: 'Hurika 1/1'},
+  users = [
+    {email: 'Ivan@gmail.com', name: 'Lyah', password: '37123', isBlocked: true},
+    {email: 'Nazar@gmail.com', name: 'Yanchishin', password: '42aszxc', isBlocked: false},
+    {email: 'Bogdana@gmail.com', name: 'Metelyuk', password: '28ad123', isBlocked: true},
+    {email: 'Ruslan@gmail.com', name: 'Dudez', password: '55zcx9876', isBlocked: false}
   ];
+  houses = [
+    {city: 'Lviv', meters: 100, price: 1000000, street: 'Gasd 23/7', user: this.users[0]},
+    {city: 'Kyiv', meters: 120, price: 1500000, street: 'Hilan 17/19', user: this.users[1]},
+    {city: 'Ivano-Frankivsk', meters: 90, price: 800000, street: 'Kolopita 3/21', user: this.users[2]},
+    {city: 'Lviv', meters: 105, price: 1200000, street: 'Hurika 1/1', user: this.users[3]}
+  ];
+  newUser = {
+    email: '',
+    name: '',
+    password: '',
+    isBlocked: false
+  };
   renderAllHouses: boolean;
   renderSearchedHouses: boolean;
   foundedHouse: any;
@@ -23,6 +36,8 @@ export class AppComponent {
   meters: number;
   price: number;
   street: string;
+  showFullInfoUser: boolean;
+  blockOrNotToBlock: number;
 
   onInput(ev): void {
     this.inputValue = ev.target.value;
@@ -45,7 +60,7 @@ export class AppComponent {
   }
 
   createHouse() {
-    this.houses.push({city: this.city, meters: this.meters, price: this.price, street: this.street});
+    this.houses.push({user: undefined, city: this.city, meters: this.meters, price: this.price, street: this.street});
   }
 
   search() {
@@ -63,14 +78,37 @@ export class AppComponent {
   }
 
   renderLogin() {
-    this.status = 1;
+    this.status = 2;
   }
 
   renderRegister() {
-    this.status = 2;
+    this.status = 1;
   }
 
   renderHouses() {
     this.renderAllHouses = !this.renderAllHouses;
+  }
+
+  showFullInfo() {
+    this.showFullInfoUser = !this.showFullInfoUser;
+  }
+
+  registerUser() {
+    this.blockOrNotToBlock = Math.random() * 100;
+
+    this.users.push(this.newUser);
+
+    (this.blockOrNotToBlock < 50) ? this.users[this.users.length - 1].isBlocked = true :
+      this.users[this.users.length - 1].isBlocked = false;
+
+    console.log(this.users);
+
+    this.newUser.email = '';
+    this.newUser.name = '';
+    this.newUser.password = '';
+  }
+
+  loginUser() {
+
   }
 }

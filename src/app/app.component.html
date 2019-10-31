@@ -5,7 +5,7 @@
 {{valueToFront}}
 <br>
 <div *ngIf="renderSearchedHouses">
-  <div *ngIf="foundedHouse" style="border: 2px solid green;">
+  <div *ngIf="foundedHouse" [class]="'greenBorder'">
     <p>City: {{foundedHouse.city}}</p>
     <p>Meters: {{foundedHouse.meters}}</p>
     <p>Price: {{foundedHouse.price}}</p>
@@ -35,24 +35,39 @@
 <br>
 <div [ngSwitch]="status">
   <div *ngSwitchCase="1">
-    <p>email: </p><input type="email">
-    <p>name: </p><input type="text">
-    <p>password: </p><input type="password">
+    <form (ngSubmit)="registerUser()">
+      <p>Email: </p><input type="email" name="email" [(ngModel)] = "newUser.email">
+      <p>Name: </p><input type="text" name="name" [(ngModel)] = "newUser.name">
+      <p>Password: </p><input type="password" name="password" [(ngModel)] = "newUser.password">
+      <br>
+      <button>Register</button>
+    </form>
   </div>
   <div *ngSwitchCase="2">
-    <p>email: </p><input type="email">
-    <p>password: </p><input type="password">
+    <form (ngSubmit)="loginUser()">
+      <p>Email: </p><input type="email" name="email">
+      <p>Password: </p><input type="password" name="password">
+      <br>
+      <button>Login</button>
+    </form>
   </div>
 </div>
 <br>
 <button (click)="renderHouses()">Houses</button>
 <br>
 <div *ngIf="renderAllHouses">
-  <div *ngFor="let house of houses" style="border: 2px solid blue;">
+  <div *ngFor="let house of houses" [ngClass]="house.user.isBlocked ? 'redBorder' : 'blueBorder'">
     <p>City: {{house.city}}</p>
     <p>Meters: {{house.meters}}</p>
     <p>Price: {{house.price}}</p>
     <p>Street: {{house.street}}</p>
+    <br>
+    <button (click)="showFullInfo()">Show info about user</button>
+    <div *ngIf="showFullInfoUser">
+      <p>Email: {{house.user.email}}</p>
+      <p>Name: {{house.user.name}}</p>
+      <p>Is blocked: {{house.user.isBlocked}}</p>
+    </div>
   </div>
 </div>
 
