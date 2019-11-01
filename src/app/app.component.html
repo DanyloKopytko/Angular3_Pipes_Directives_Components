@@ -14,20 +14,6 @@
   {{houseSearchError}}
 </div>
 <br>
-<p>Maybe you want create new house?</p>
-<p>City: </p>
-<input type="text" (input)="onHouseInputCity($event)">
-<p>Meters: </p>
-<input type="number" (input)="onHouseInputMeters($event)">
-<p>Price: </p>
-<input type="number" (input)="onHouseInputPrice($event)">
-<p>Street: </p>
-<input type="text" (input)="onHouseInputStreet($event)">
-<br>
-<br>
-<button (click)="createHouse()">Create</button>
-<br>
-<br>
 <button (click)="renderLogin()">Login</button>
 <br>
 <br>
@@ -35,23 +21,49 @@
 <br>
 <div [ngSwitch]="status">
   <div *ngSwitchCase="1">
-    <form (ngSubmit)="registerUser()">
-      <p>Email: </p><input type="email" name="email" [(ngModel)] = "newUser.email">
-      <p>Name: </p><input type="text" name="name" [(ngModel)] = "newUser.name">
-      <p>Password: </p><input type="password" name="password" [(ngModel)] = "newUser.password">
+    <form #registrationForm="ngForm" (ngSubmit)="registerUser(registrationForm)">
+      <p [style.color]="emailErrorReg ? 'red' : 'black'">Email: </p><input type="email" name="email"
+                                                                           [(ngModel)]="newUser.email" ngModel>
+      <p [style.color]="nameErrorReg ? 'red' : 'black'">Name: </p><input type="text" name="name"
+                                                                         [(ngModel)]="newUser.name" ngModel>
+      <p [style.color]="passwordErrorReg ? 'red' : 'black'">Password: </p><input type="password" name="password"
+                                                                                 [(ngModel)]="newUser.password" ngModel>
       <br>
       <button>Register</button>
+      <div *ngIf="registerError">
+        {{registerError}}
+      </div>
     </form>
   </div>
   <div *ngSwitchCase="2">
     <form (ngSubmit)="loginUser()">
-      <p>Email: </p><input type="email" name="email">
-      <p>Password: </p><input type="password" name="password">
+      <p>Email: </p><input type="email" name="email" [(ngModel)]="loginData.email">
+      <p>Password: </p><input type="password" name="password" [(ngModel)]="loginData.password">
       <br>
       <button>Login</button>
+      <br>
+      {{welcomeMessage}}
     </form>
   </div>
 </div>
+<br>
+<p>Maybe you want create new house?</p>
+<form #houseCreationForm = "ngForm" (ngSubmit)="createHouse(houseCreationForm)">
+  <p [style.color]="cityErrorCreation ? 'red' : 'black'">City: </p>
+  <input type="text" name="city" ngModel>
+  <p [style.color]="metersErrorCreation ? 'red' : 'black'">Meters: </p>
+  <input type="number" name="meters" ngModel>
+  <p [style.color]="priceErrorCreation ? 'red' : 'black'">Price: </p>
+  <input type="number" name="price" ngModel>
+  <p [style.color]="streetErrorCreation ? 'red' : 'black'">Street: </p>
+  <input type="text" name="street" ngModel>
+  <br>
+  <br>
+  <button>Create</button>
+  <br>
+  {{houseCreationError}}
+</form>
+<br>
 <br>
 <button (click)="renderHouses()">Houses</button>
 <br>
@@ -62,13 +74,11 @@
     <p>Price: {{house.price}}</p>
     <p>Street: {{house.street}}</p>
     <br>
-    <button (click)="showFullInfo()">Show info about user</button>
-    <div *ngIf="showFullInfoUser">
+    <button (click)="showFullInfo(house.street)">Show info about user</button>
+    <div *ngIf="showFullInfoUser && house.street === showHouseByStreet">
       <p>Email: {{house.user.email}}</p>
       <p>Name: {{house.user.name}}</p>
       <p>Is blocked: {{house.user.isBlocked}}</p>
     </div>
   </div>
 </div>
-
-

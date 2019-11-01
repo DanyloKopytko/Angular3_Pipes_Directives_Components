@@ -28,42 +28,39 @@ export class AppComponent {
     password: '',
     isBlocked: false
   };
+  loginData = {
+    email: '',
+    password: ''
+  };
   renderAllHouses: boolean;
   renderSearchedHouses: boolean;
   foundedHouse: any;
   houseSearchError: string;
-  city: string;
-  meters: number;
-  price: number;
-  street: string;
   showFullInfoUser: boolean;
   blockOrNotToBlock: number;
+  email: string;
+  name: string;
+  password: string;
+  isBlocked: boolean;
+  registerError: string;
+  emailErrorReg: boolean;
+  nameErrorReg: boolean;
+  passwordErrorReg: boolean;
+  foundedUser: any;
+  welcomeMessage: string;
+  getRandomUser: number;
+  cityErrorCreation: boolean;
+  metersErrorCreation: boolean;
+  priceErrorCreation: boolean;
+  streetErrorCreation: boolean;
+  houseCreationError: string;
+  showHouseByStreet: string;
 
   onInput(ev): void {
     this.inputValue = ev.target.value;
   }
 
-  onHouseInputCity(ev): void {
-    this.city = ev.target.value;
-  }
-
-  onHouseInputMeters(ev): void {
-    this.meters = ev.target.value;
-  }
-
-  onHouseInputPrice(ev): void {
-    this.price = ev.target.value;
-  }
-
-  onHouseInputStreet(ev): void {
-    this.street = ev.target.value;
-  }
-
-  createHouse() {
-    this.houses.push({user: undefined, city: this.city, meters: this.meters, price: this.price, street: this.street});
-  }
-
-  search() {
+  search(): void {
     this.valueToFront = this.inputValue;
     this.foundedHouse = undefined;
     this.houseSearchError = '';
@@ -77,38 +74,113 @@ export class AppComponent {
     this.renderSearchedHouses = true;
   }
 
-  renderLogin() {
+  renderLogin(): void {
     this.status = 2;
   }
 
-  renderRegister() {
+  renderRegister(): void {
     this.status = 1;
   }
 
-  renderHouses() {
-    this.renderAllHouses = !this.renderAllHouses;
-  }
-
-  showFullInfo() {
-    this.showFullInfoUser = !this.showFullInfoUser;
-  }
-
-  registerUser() {
+  registerUser(registrationForm: NgForm): number {
     this.blockOrNotToBlock = Math.random() * 100;
 
-    this.users.push(this.newUser);
+    this.email = this.newUser.email;
+    this.name = this.newUser.name;
+    this.password = this.newUser.password;
 
-    (this.blockOrNotToBlock < 50) ? this.users[this.users.length - 1].isBlocked = true :
-      this.users[this.users.length - 1].isBlocked = false;
+    if (!registrationForm.value.email) {
+      this.emailErrorReg = true;
+    }
 
-    console.log(this.users);
+    if (!registrationForm.value.name) {
+      this.nameErrorReg = true;
+    }
+
+    if (!registrationForm.value.password) {
+      this.passwordErrorReg = true;
+    }
+
+    if (!this.email || !this.name || !this.password) {
+      this.registerError = 'Not all the fields was correctly fulfilled';
+
+      return 0;
+    }
+
+    (this.blockOrNotToBlock < 50) ? this.isBlocked = true : this.isBlocked = false;
+
+    this.users.push({email: this.email, name: this.name, password: this.password, isBlocked: this.isBlocked});
 
     this.newUser.email = '';
     this.newUser.name = '';
     this.newUser.password = '';
+    this.registerError = '';
+    this.emailErrorReg = false;
+    this.nameErrorReg = false;
+    this.passwordErrorReg = false;
   }
 
-  loginUser() {
+  loginUser(): number {
+    if (!this.loginData.email || !this.loginData.password) {
+      this.welcomeMessage = 'This fields are empty!';
 
+      return 0;
+    }
+
+    this.foundedUser = this.users.find((user) => user.email === this.loginData.email && user.password === this.loginData.password);
+
+    (this.foundedUser) ? this.welcomeMessage = 'Welcome home!' : this.welcomeMessage = 'No such user';
+
+    this.loginData.email = '';
+    this.loginData.password = '';
+  }
+
+  createHouse(houseCreationForm: NgForm): number {
+    if (!houseCreationForm.value.city) {
+      this.cityErrorCreation = true;
+    }
+
+    if (!houseCreationForm.value.meters) {
+      this.metersErrorCreation = true;
+    }
+
+    if (!houseCreationForm.value.city.price) {
+      this.priceErrorCreation = true;
+    }
+
+    if (!houseCreationForm.value.city.street) {
+      this.streetErrorCreation = true;
+    }
+
+    if (
+      !houseCreationForm.value.city ||
+      !houseCreationForm.value.meters ||
+      !houseCreationForm.value.price ||
+      !houseCreationForm.value.street
+    ) {
+      this.houseCreationError = 'Not all the fields was correctly fulfilled';
+
+      return 0;
+    }
+
+    this.getRandomUser = Math.random() * (this.users.length - 1);
+
+    this.houses.push(houseCreationForm.value);
+    this.houses[this.houses.length - 1].user = this.users[this.getRandomUser.toFixed(0)];
+
+    this.cityErrorCreation = false;
+    this.metersErrorCreation = false;
+    this.priceErrorCreation = false;
+    this.streetErrorCreation = false;
+    this.houseCreationError = '';
+  }
+
+  renderHouses(): void {
+    this.renderAllHouses = !this.renderAllHouses;
+  }
+
+  showFullInfo(street: string): void {
+    this.showHouseByStreet = street;
+    this.showFullInfoUser = !this.showFullInfoUser;
   }
 }
