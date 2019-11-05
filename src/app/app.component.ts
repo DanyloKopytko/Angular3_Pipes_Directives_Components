@@ -17,10 +17,10 @@ export class AppComponent {
     {email: 'Ruslan@gmail.com', name: 'Dudez', password: '55zcx9876', isBlocked: false}
   ];
   houses = [
-    {city: 'Lviv', meters: 100, price: 1000000, street: 'Gasd 23/7', user: this.users[0]},
-    {city: 'Kyiv', meters: 120, price: 1500000, street: 'Hilan 17/19', user: this.users[1]},
-    {city: 'Ivano-Frankivsk', meters: 90, price: 800000, street: 'Kolopita 3/21', user: this.users[2]},
-    {city: 'Lviv', meters: 105, price: 1200000, street: 'Hurika 1/1', user: this.users[3]}
+    {city: 'Lviv', meters: 100, price: 100000, street: 'Gasd 23/7', user: this.users[0]},
+    {city: 'Kyiv', meters: 120, price: 150000, street: 'Hilan 17/19', user: this.users[1]},
+    {city: 'Ivano-Frankivsk', meters: 90, price: 80000, street: 'Kolopita 3/21', user: this.users[2]},
+    {city: 'Lviv', meters: 105, price: 120000, street: 'Hurika 1/1', user: this.users[3]}
   ];
   newUser = {
     email: '',
