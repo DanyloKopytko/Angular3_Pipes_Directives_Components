@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-house-component',
@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./house-component.component.css']
 })
 export class HouseComponentComponent {
-
-  constructor() { }
+  @Input() houses: any[];
+  @Input() users: any[];
 }

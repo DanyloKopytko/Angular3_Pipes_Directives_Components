@@ -1,19 +1,3 @@
-<p>Input price and we will find you house! Just get a house: </p>
-<input type="text" (input)="onInput($event)">
-<button (click)="search()">Search</button>
-<br>
-{{valueToFront}}
-<br>
-<div *ngIf="renderSearchedHouses">
-  <div *ngIf="foundedHouse" [class]="'greenBorder'">
-    <p>City: {{foundedHouse.city}}</p>
-    <p>Meters: {{foundedHouse.meters}}</p>
-    <p>Price: {{foundedHouse.price}}</p>
-    <p>Street: {{foundedHouse.street}}</p>
-  </div>
-  {{houseSearchError}}
-</div>
-<br>
 <button (click)="renderLogin()">Login</button>
 <br>
 <br>
@@ -47,39 +31,7 @@
   </div>
 </div>
 <br>
-<p>Maybe you want create new house?</p>
-<form #houseCreationForm = "ngForm" (ngSubmit)="createHouse(houseCreationForm)">
-  <p [style.color]="cityErrorCreation ? 'red' : 'black'">City: </p>
-  <input type="text" name="city" ngModel>
-  <p [style.color]="metersErrorCreation ? 'red' : 'black'">Meters: </p>
-  <input type="number" name="meters" ngModel>
-  <p [style.color]="priceErrorCreation ? 'red' : 'black'">Price: </p>
-  <input type="number" name="price" ngModel>
-  <p [style.color]="streetErrorCreation ? 'red' : 'black'">Street: </p>
-  <input type="text" name="street" ngModel>
-  <br>
-  <br>
-  <button>Create</button>
-  <br>
-  {{houseCreationError}}
-</form>
-<br>
-<br>
-<button (click)="renderHouses()">Houses</button>
-<br>
-<div *ngIf="renderAllHouses">
-  <div *ngFor="let house of houses" [ngClass]="house.user.isBlocked ? 'redBorder' : 'blueBorder'">
-    <p>City: {{house.city}}</p>
-    <p>Meters: {{house.meters}}</p>
-    <p>Price in gryvnyas: {{house.price | currencyExchanger: 'gryvnya'}}</p>
-    <p>Price in dollars: {{house.price}}$</p>
-    <p>Street: {{house.street}}</p>
-    <br>
-    <button (click)="showFullInfo(house.street)">Show info about user</button>
-    <div *ngIf="showFullInfoUser && house.street === showHouseByStreet">
-      <p>Email: {{house.user.email}}</p>
-      <p>Name: {{house.user.name}}</p>
-      <p>Is blocked: {{house.user.isBlocked}}</p>
-    </div>
-  </div>
-</div>
+<app-house-component
+[houses] = "houses"
+[users] = "users"
+></app-house-component>

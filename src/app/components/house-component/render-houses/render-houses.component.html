@@ -1,0 +1,18 @@
+<button (click)="renderHouses()">Houses</button>
+<br>
+<div *ngIf="renderAllHouses">
+  <div *ngFor="let house of houses" [ngClass]="house.user.isBlocked ? 'redBorder' : 'blueBorder'">
+    <p>City: {{house.city}}</p>
+    <p>Meters: {{house.meters}}</p>
+    <p>Price in gryvnyas: {{house.price | currencyExchanger: 'gryvnya'}}</p>
+    <p>Price in dollars: {{house.price}}$</p>
+    <p>Street: {{house.street}}</p>
+    <br>
+    <button (click)="showFullInfo(house.street)">Show info about user</button>
+    <div *ngIf="showFullInfoUser && house.street === showHouseByStreet">
+      <p>Email: {{house.user.email}}</p>
+      <p>Name: {{house.user.name}}</p>
+      <p>Is blocked: {{house.user.isBlocked}}</p>
+    </div>
+  </div>
+</div>

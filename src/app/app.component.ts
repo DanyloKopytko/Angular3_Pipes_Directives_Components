@@ -7,8 +7,6 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  inputValue: string;
-  valueToFront: string;
   status: number;
   users = [
     {email: 'Ivan@gmail.com', name: 'Lyah', password: '37123', isBlocked: true},
@@ -32,11 +30,6 @@ export class AppComponent {
     email: '',
     password: ''
   };
-  renderAllHouses: boolean;
-  renderSearchedHouses: boolean;
-  foundedHouse: any;
-  houseSearchError: string;
-  showFullInfoUser: boolean;
   blockOrNotToBlock: number;
   email: string;
   name: string;
@@ -48,31 +41,6 @@ export class AppComponent {
   passwordErrorReg: boolean;
   foundedUser: any;
   welcomeMessage: string;
-  getRandomUser: number;
-  cityErrorCreation: boolean;
-  metersErrorCreation: boolean;
-  priceErrorCreation: boolean;
-  streetErrorCreation: boolean;
-  houseCreationError: string;
-  showHouseByStreet: string;
-
-  onInput(ev): void {
-    this.inputValue = ev.target.value;
-  }
-
-  search(): void {
-    this.valueToFront = this.inputValue;
-    this.foundedHouse = undefined;
-    this.houseSearchError = '';
-
-    this.foundedHouse = this.houses.find((house) => +house.price === +this.valueToFront);
-
-    if (!this.foundedHouse) {
-      this.houseSearchError = 'No house, dude';
-    }
-
-    this.renderSearchedHouses = true;
-  }
 
   renderLogin(): void {
     this.status = 2;
@@ -133,54 +101,5 @@ export class AppComponent {
 
     this.loginData.email = '';
     this.loginData.password = '';
-  }
-
-  createHouse(houseCreationForm: NgForm): number {
-    if (!houseCreationForm.value.city) {
-      this.cityErrorCreation = true;
-    }
-
-    if (!houseCreationForm.value.meters) {
-      this.metersErrorCreation = true;
-    }
-
-    if (!houseCreationForm.value.city.price) {
-      this.priceErrorCreation = true;
-    }
-
-    if (!houseCreationForm.value.city.street) {
-      this.streetErrorCreation = true;
-    }
-
-    if (
-      !houseCreationForm.value.city ||
-      !houseCreationForm.value.meters ||
-      !houseCreationForm.value.price ||
-      !houseCreationForm.value.street
-    ) {
-      this.houseCreationError = 'Not all the fields was correctly fulfilled';
-
-      return 0;
-    }
-
-    this.getRandomUser = Math.random() * (this.users.length - 1);
-
-    this.houses.push(houseCreationForm.value);
-    this.houses[this.houses.length - 1].user = this.users[this.getRandomUser.toFixed(0)];
-
-    this.cityErrorCreation = false;
-    this.metersErrorCreation = false;
-    this.priceErrorCreation = false;
-    this.streetErrorCreation = false;
-    this.houseCreationError = '';
-  }
-
-  renderHouses(): void {
-    this.renderAllHouses = !this.renderAllHouses;
-  }
-
-  showFullInfo(street: string): void {
-    this.showHouseByStreet = street;
-    this.showFullInfoUser = !this.showFullInfoUser;
   }
 }

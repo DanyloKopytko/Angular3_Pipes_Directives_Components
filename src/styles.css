@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+.greenBorder {
+  border: 2px solid green;
+}
+
+.blueBorder {
+  border: 2px solid blue;
+}
+
+.redBorder {
+  border: 2px solid red;
+}
+

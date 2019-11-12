@@ -1,0 +1,18 @@
+<p>Maybe you want create a new house?</p>
+<form #houseCreationForm = "ngForm" (ngSubmit)="createHouse(houseCreationForm)">
+  <p [style.color]="cityErrorCreation ? 'red' : 'black'">City: </p>
+  <input type="text" name="city" ngModel>
+  <p [style.color]="metersErrorCreation ? 'red' : 'black'">Meters: </p>
+  <input type="number" name="meters" ngModel>
+  <p [style.color]="priceErrorCreation ? 'red' : 'black'">Price: </p>
+  <input type="number" name="price" ngModel>
+  <p [style.color]="streetErrorCreation ? 'red' : 'black'">Street: </p>
+  <input type="text" name="street" ngModel>
+  <br>
+  <br>
+  <button>Create</button>
+  <br>
+  {{houseCreationError}}
+</form>
+<br>
+<br>
