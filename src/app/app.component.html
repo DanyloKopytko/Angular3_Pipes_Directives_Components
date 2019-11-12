@@ -1,37 +1,8 @@
-<button (click)="renderLogin()">Login</button>
-<br>
-<br>
-<button (click)="renderRegister()">Register</button>
-<br>
-<div [ngSwitch]="status">
-  <div *ngSwitchCase="1">
-    <form #registrationForm="ngForm" (ngSubmit)="registerUser(registrationForm)">
-      <p [style.color]="emailErrorReg ? 'red' : 'black'">Email: </p><input type="email" name="email"
-                                                                           [(ngModel)]="newUser.email" ngModel>
-      <p [style.color]="nameErrorReg ? 'red' : 'black'">Name: </p><input type="text" name="name"
-                                                                         [(ngModel)]="newUser.name" ngModel>
-      <p [style.color]="passwordErrorReg ? 'red' : 'black'">Password: </p><input type="password" name="password"
-                                                                                 [(ngModel)]="newUser.password" ngModel>
-      <br>
-      <button>Register</button>
-      <div *ngIf="registerError">
-        {{registerError}}
-      </div>
-    </form>
-  </div>
-  <div *ngSwitchCase="2">
-    <form (ngSubmit)="loginUser()">
-      <p>Email: </p><input type="email" name="email" [(ngModel)]="loginData.email">
-      <p>Password: </p><input type="password" name="password" [(ngModel)]="loginData.password">
-      <br>
-      <button>Login</button>
-      <br>
-      {{welcomeMessage}}
-    </form>
-  </div>
-</div>
-<br>
+<app-user-component
+  [houses]="houses"
+  [users]="users"
+></app-user-component>
 <app-house-component
-[houses] = "houses"
-[users] = "users"
+  [houses]="houses"
+  [users]="users"
 ></app-house-component>

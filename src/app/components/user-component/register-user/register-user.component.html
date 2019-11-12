@@ -1,0 +1,14 @@
+<form #registrationForm="ngForm" (ngSubmit)="registerUser(registrationForm)">
+  <p [style.color]="emailErrorReg ? 'red' : 'black'">Email: </p>
+  <input type="email" name="email" [(ngModel)]="newUser.email" ngModel>
+  <p [style.color]="nameErrorReg ? 'red' : 'black'">Name: </p>
+  <input type="text" name="name"
+         [(ngModel)]="newUser.name" ngModel>
+  <p [style.color]="passwordErrorReg ? 'red' : 'black'">Password: </p>
+  <input type="password" name="password" [(ngModel)]="newUser.password" ngModel>
+  <br>
+  <button>Register</button>
+  <div *ngIf="registerError">
+    {{registerError}}
+  </div>
+</form>

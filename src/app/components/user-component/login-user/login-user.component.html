@@ -1,1 +1,8 @@
-<p>login-user works!</p>
+<form (ngSubmit)="loginUser()">
+  <p>Email: </p><input type="email" name="email" [(ngModel)]="loginData.email">
+  <p>Password: </p><input type="password" name="password" [(ngModel)]="loginData.password">
+  <br>
+  <button>Login</button>
+  <br>
+  {{welcomeMessage}}
+</form>

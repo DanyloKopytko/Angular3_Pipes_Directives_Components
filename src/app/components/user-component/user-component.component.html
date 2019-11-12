@@ -1,8 +1,20 @@
-<app-login-user
-  [houses] = "houses"
-  [users] = "users"
-></app-login-user>
-<app-login-user
-  [houses] = "houses"
-  [users] = "users"
-></app-login-user>
+<button (click)="renderRegister()">Register</button>
+<br>
+<button (click)="renderLogin()">Login</button>
+<br>
+<br>
+<div [ngSwitch]="status">
+  <div *ngSwitchCase="1">
+    <app-register-user
+      [houses]="houses"
+      [users]="users"
+    ></app-register-user>
+  </div>
+  <div *ngSwitchCase="2">
+  <app-login-user
+    [houses]="houses"
+    [users]="users"
+  ></app-login-user>
+  </div>
+</div>
+<br>
